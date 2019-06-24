@@ -3,7 +3,7 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const webpackDevConfig = {
     mode: "development", // "production" | "development" | "none"  // Chosen mode tells webpack to use its built-in optimizations accordingly.
 
-    entry: "../src/entry.ts", // string | object | array  // 这里应用程序开始执行
+    entry: path.resolve(__dirname, "../src/entry.tsx"), // string | object | array  // 这里应用程序开始执行
     // webpack 开始打包
 
     output: {
@@ -30,19 +30,15 @@ const webpackDevConfig = {
         rules: [
             // 模块规则（配置 loader、解析器等选项）
             { test: /\.tsx?$/, loader: "awesome-typescript-loader" },
+            { test: /\.css$/, loader: "style-loader!css-loader" },
             { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
         ],
     },
 
     resolve: {
-        // 解析模块请求的选项
-        // （不适用于对 loader 解析）
-        modules: [
-            "node_modules",
-        ],
-        // 用于查找模块的目录
-        extensions: [".js", ".json", ".jsx", ".css", "ts", "tsx"],
-        // 使用的扩展名
+        extensions: [".ts", ".tsx", ".js", "jsx", "json", "css"],
+        //extensions: [".js", ".json", ".jsx", ".css", "ts", "tsx"],
+        //使用的扩展名
     },
     devtool: "source-map", // enum  // 通过在浏览器调试工具(browser devtools)中添加元信息(meta info)增强调试
     // 牺牲了构建速度的 `source-map' 是最详细的。
@@ -74,6 +70,8 @@ const webpackDevConfig = {
         })
         // ...
     ],
+
+
     // 附加插件列表
 }
 
